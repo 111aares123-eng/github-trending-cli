@@ -1,18 +1,34 @@
 import requests
+import argparse
 from datetime import datetime, timedelta
 
-week_ago=datetime.now() - timedelta(days=7)
-date_str=week_ago.strftime("%Y-%m-%d")
-print(date_str)
+parser = argparse.ArgumentParser()
+parser.add_argument("--duration", default="week")
+parser.add_argument("--limit", default=5, type=int)
+parser.add_argument("--language", default=None)
+args = parser.parse_args()
 
-response = requests.get("https://api.github.com/search/repositories?q=created:>2025-06-22&sort=stars&order=desc&per_page=5")
+duration_days = {
+    "day": 1,
+    "week": 7,
+    "month": 30,
+    "year": 365
+}
+
+days = duration_days[args.duration]
+since = datetime.now() - timedelta(days=days)
+date_str = since.strftime("%Y-%m-%d")
+
+query = "created:>" + date_str
+if args.language:
+    query = query + " language:" + args.language
+
+response = requests.get("https://api.github.com/search/repositories?q=" + query + "&sort=stars&order=desc&per_page=" + str(args.limit))
 
 data = response.json()
-
-repos=data["items"]
+repos = data["items"]
 
 for repo in repos:
-    print(repo["full_name"],"⭐",repo["stargazers_count"])
+    print(repo["full_name"], "⭐", repo["stargazers_count"])
     print(repo["description"])
     print()
-

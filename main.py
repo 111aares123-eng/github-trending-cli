@@ -1,3 +1,11 @@
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
+import argparse
+from trending_repos import get_trending_repos
+from display import show_repos
+
 import argparse
 from trending_repos import get_trending_repos
 from display import show_repos

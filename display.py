@@ -14,7 +14,7 @@ def show_repos(repos):
 
     table.add_column("#",         style="dim",          width=4)
     table.add_column("Repository",style="bold white",   min_width=25)
-    table.add_column("⭐ Stars",  style="yellow",       justify="right")
+    table.add_column("Stars",  style="yellow",       justify="right")
     table.add_column("Language",  style="magenta")
     table.add_column("Description",style="white",       max_width=45)
     table.add_column("URL",       style="blue underline")

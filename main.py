@@ -6,10 +6,6 @@ import argparse
 from trending_repos import get_trending_repos
 from display import show_repos
 
-import argparse
-from trending_repos import get_trending_repos
-from display import show_repos
-
 def main():
     parser=argparse.ArgumentParser(description="Show github trending repositories")
     parser.add_argument("--duration", default="week", choices=["day","week","month", "year"])
